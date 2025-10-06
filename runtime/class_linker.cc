@@ -15,7 +15,7 @@
  */
 
 #include "class_linker.h"
-
+#include "dump_dexfile.h"
 #include <unistd.h>
 
 #include <algorithm>
@@ -2398,6 +2398,7 @@ ObjPtr<mirror::PointerArray> ClassLinker::AllocPointerArray(Thread* self, size_t
 
 ObjPtr<mirror::DexCache> ClassLinker::AllocDexCache(Thread* self, const DexFile& dex_file) {
   StackHandleScope<1> hs(self);
+  dump_dexfile(&dex_file);      
   auto dex_cache(hs.NewHandle(ObjPtr<mirror::DexCache>::DownCast(
       GetClassRoot<mirror::DexCache>(this)->AllocObject(self))));
   if (dex_cache == nullptr) {
